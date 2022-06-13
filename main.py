@@ -25,10 +25,17 @@ class App(Tk):
         self.last_image_button.grid(row=1, column=3, padx=5, pady=5)
 
     def set_status_label(self) -> None:
+        """Setting the status of the viewer x of x images
+        """
         self.status_label = Label(text=f"{self.current_image_position+1}/{len(self.all_images)}")
         self.status_label.grid(row=2, columnspan=4)
 
     def set_image(self, position: int) -> None:
+        """Set the image to view it
+
+        Args:
+            position (int): position of the image in the image list
+        """
         try:
             self.image = ImageTk.PhotoImage(Image.open(self.all_images[position]))
         except FileNotFoundError:
@@ -38,6 +45,11 @@ class App(Tk):
             self.label_image.grid(row=0, columnspan=4)
 
     def change_image(self, to: str) -> None:
+        """Change the image in terms of direction
+
+        Args:
+            to (str): < or > to simple slide, << or >> to go to the beginning or the last img
+        """
         image_max_range = len(self.all_images)-1
         if to == ">" or to == "<":        
             wanted_image_position = self.current_image_position+1 if to == ">" else self.current_image_position-1
